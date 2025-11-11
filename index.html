@@ -40,7 +40,18 @@
   <a href="index.html">首頁</a>
   <a href="team_members.html">成員介紹</a>
   <a href="todo">策展理念</a>
-  <a href="todo">策展主題</a>
+
+  <!-- 下拉式選單：策展主題 -->
+  <div class="dropdown" id="themeDropdown">
+    <button class="dropbtn" id="dropbtn" aria-haspopup="true" aria-expanded="false">策展主題 ▾</button>
+    <ul class="dropdown-menu" role="menu" aria-label="策展主題列表">
+      <li role="none"><a role="menuitem" href="theme1.html">茶與文人詩畫</a></li>
+      <li role="none"><a role="menuitem" href="theme2.html">唐代煮茶與宋代點茶文化</a></li>
+      <li role="none"><a role="menuitem" href="theme3.html">茶具的原料和製作方式</a></li>
+      <li role="none"><a role="menuitem" href="theme4.html">明清大調「茶」</a></li>
+    </ul>
+  </div>
+
     <input type="text" id="searchInput" placeholder="在這裡搜索">
     <button type="button" onclick="search()">🔍</button>
   </nav>
@@ -117,6 +128,49 @@
         alert('nothing found');
       }
     }
+  </script>
+  <script>
+    // Dropdown: 點擊切換，點擊外側關閉
+    (function() {
+      var dropdown = document.getElementById('themeDropdown');
+      var btn = document.getElementById('dropbtn');
+
+      if (!dropdown || !btn) return;
+
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = dropdown.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      // 點擊選單項時也關閉選單
+      dropdown.addEventListener('click', function(e) {
+        var target = e.target;
+        if (target.tagName.toLowerCase() === 'a') {
+          dropdown.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // 點擊頁面其他地方關閉
+      document.addEventListener('click', function() {
+        if (dropdown.classList.contains('open')) {
+          dropdown.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // 鍵盤可存取性：Esc 關閉
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          if (dropdown.classList.contains('open')) {
+            dropdown.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+            btn.focus();
+          }
+        }
+      });
+    })();
   </script>
 </body>
 </html>
