@@ -1,0 +1,267 @@
+/* ===== 全局設定 ===== */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: #fff;
+  padding-top: 60px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== 背景圖層 ===== */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('pic/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+/* ===== 頁首 header ===== */
+.site-header {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0 120px 0 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  height: 60px;
+}
+
+.site-header a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+.logo img {
+  height: 50px;
+  width: auto;
+}
+
+h1 {
+  color: #111 !important;
+  font-size: 2.2em;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 40px;
+  text-shadow: 0 2px 8px #fff;
+}
+
+/* ===== 中間橫幅 ===== */
+.hero-banner {
+  padding: 10px 20px;
+  text-align: center;
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px white;
+}
+
+/* ===== 主選單 ===== */
+.main-nav {
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 10px 20px;
+  gap: 15px;
+}
+
+.main-nav a {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+}
+
+.main-nav input[type="text"] {
+  margin-left: auto;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.main-nav button {
+  padding: 5px 10px;
+  margin-left: 5px;
+}
+
+/* ===== 輪播區 Swiper ===== */
+.mySwiper {
+  width: 80%;
+  max-width: 900px;
+  height: 400px;
+  margin: 30px auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mySwiper .swiper-pagination-bullet {
+  background: white !important;
+  opacity: 0.7;
+}
+
+.mySwiper .swiper-pagination-bullet-active {
+  background: #00AEEF !important;
+  opacity: 1;
+}
+
+/* ===== 功能選單（九宮格） ===== */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.feature-item {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 20px 10px;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.feature-item:hover {
+  background-color: #555;
+  transform: scale(1.05);
+}
+
+.feature-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin: 0 auto 10px;
+}
+
+.feature-item span {
+  display: block;
+  font-size: 14px;
+}
+
+/* ===== 成員介紹區 ===== */
+.team-section {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.team-section h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  padding: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.team-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.team-member {
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  padding: 15px;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.team-member:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.team-member img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.member-info h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.member-info p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.team-member p a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===== 回首頁按鈕 ===== */
+.back-home {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.back-home a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #000;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.back-home a:hover {
+  background-color: #444;
+}
+
+/* ===== 響應式設計 ===== */
+@media (max-width: 768px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.top-nav {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  min-width: 180px;
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRTS Wiki</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Noto Sans TC', Arial, sans-serif;
+    }
+  </style>
+
+  <!-- Swiper 官方提供的 CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+</head>
+<body>
+  <!-- 頁首 -->
+  <header class="site-header">
+    <div class="logo">
+      <a href="index.html">
+        <img src="pic/1.png" alt="Logo">
+      </a>
+    </div>
+    <nav class="top-nav">
+    </nav>
+  </header>
+
+  <!-- 背景層 -->
+  <div class="background"></div>
+
+  <!-- 中間橫幅 hero banner -->
+  <main class="hero-banner">
+    <h1>一盞千年：中國飲茶文化的時光旅程</h1>
+  </main>
+
+  <!-- 主導覽列 -->
+  <nav class="main-nav">
+  <a href="index.html">首頁</a>
+  <a href="team_members.html">成員介紹</a>
+  <a href="todo">策展理念</a>
+  <a href="todo">策展主題</a>
+    <input type="text" id="searchInput" placeholder="在這裡搜索">
+    <button type="button" onclick="search()">🔍</button>
+  </nav>
+
+  <!-- 輪播廣告區 -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+  <img src="pic/b1.jpg" alt="看板1">
+      </div>
+      <div class="swiper-slide">
+  <img src="pic/b2.jpg" alt="看板2">
+      </div>
+      <div class="swiper-slide">
+  <img src="pic/b3.jpg" alt="看板3">
+      </div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <!-- 功能選單區 -->
+  <section class="feature-grid">
+    <a href="character.html" class="feature-item">
+  <img src="pic/charactor.png" alt="幹員檔案">
+      <span>幹員檔案</span>
+    </a>
+    <a href="item.html" class="feature-item">
+  <img src="pic/item.png" alt="道具資料">
+      <span>道具資料</span>
+    </a>
+    <a href="stage.html" class="feature-item">
+  <img src="pic/gk.png" alt="關卡一覽">
+      <span>關卡一覽</span>
+    </a>
+  </section>
+
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+    });
+
+    function search() {
+      var value = document.getElementById('searchInput').value.trim();
+      if (!value) return;
+      var keyword = value.toLowerCase();
+      if (keyword.includes('幹員')) {
+        window.location.href = "character.html";
+      } else if (keyword.includes('道具')) {
+        window.location.href = "item.html";
+      } else if (keyword.includes('關卡')) {
+        window.location.href = "stage.html";
+      } else if (keyword.includes('成員')) {
+        window.location.href = "team_members.html";
+      } else {
+        alert('nothing found');
+      }
+    }
+  </script>
+</body>
+</html>
