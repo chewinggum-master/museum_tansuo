@@ -3,7 +3,8 @@ body {
   margin: 0;
   font-family: sans-serif;
   background-color: #fff;
-  padding-top: 60px;
+  /* ensure no extra top padding so content is close to top */
+  padding-top: 0;
 }
 
 img {
@@ -19,7 +20,7 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('pic/background.jpg');
+  background-image: url('images/items/background.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -33,15 +34,15 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
+  /* make header background transparent so the black bar is gone */
+  background-color: transparent;
   color: white;
-  padding: 0 120px 0 20px;
-  position: fixed;
+  padding: 10px 20px;
+  /* keep header in the normal flow so content positions naturally */
+  position: static;
   width: 100%;
-  top: 0;
-  left: 0;
   z-index: 1000;
-  height: 60px;
+  height: auto;
 }
 
 .site-header a {
@@ -53,6 +54,7 @@ img {
 .logo img {
   height: 50px;
   width: auto;
+  margin-top: -20px;
 }
 
 h1 {
@@ -60,7 +62,7 @@ h1 {
   font-size: 2.2em;
   font-weight: bold;
   text-align: center;
-  margin-top: 40px;
+  margin-top: -70px;
   text-shadow: 0 2px 8px #fff;
 }
 
