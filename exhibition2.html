@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>exhibition1</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  
+  <style>
+    body {
+      font-family: 'Noto Sans TC', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Full-height swiper container */
+    .exhibition-swiper-container {
+      width: 100%;
+      /* calc: viewport height minus main-nav height (~50px) */
+      height: calc(100vh - 50px);
+      margin: 0;
+      padding: 0;
+    }
+
+    .exhibition-swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Slide layout: image on left, text panel on right */
+    .slide-content {
+      display: flex;
+      height: 100%;
+      background: #fff;
+    }
+
+    .slide-image {
+      position: relative;
+      flex: 0 0 60%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: #f5f5f5;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .slide-text {
+      flex: 1;
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+      overflow-y: auto;
+    }
+
+    .slide-title {
+      font-size: 40px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 12px;
+    }
+
+    .slide-meta {
+      font-size: 30px;
+      color: #7f8c8d;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .slide-description {
+      font-size: 25px;
+      color: #34495e;
+      line-height: 1.8;
+    }
+
+    /* Swiper navigation buttons */
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: rgba(44, 62, 80, 0.7);
+    }
+
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+      color: rgba(44, 62, 80, 1);
+    }
+
+    .swiper-pagination-bullet {
+      background: rgba(44, 62, 80, 0.4);
+    }
+
+    .swiper-pagination-bullet-active {
+      background: #2c3e50;
+    }
+
+    /* Responsive: stack image above text on small screens */
+    @media (max-width: 900px) {
+      .slide-content {
+        flex-direction: column;
+      }
+      .slide-image {
+        flex-basis: 50%;
+        height: 50%;
+      }
+      .slide-text {
+        padding: 20px;
+        height: 50%;
+      }
+      .slide-title {
+        font-size: 24px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .slide-image {
+        flex-basis: 40%;
+      }
+      .slide-text {
+        flex-basis: 60%;
+      }
+      .slide-title {
+        font-size: 20px;
+      }
+      .slide-description {
+        font-size: 14px;
+      }
+    }
+
+    /* Blurred background layer (dynamically created by JS) */
+    .blur-bg-layer {
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 120%;
+      height: 120%;
+      background-size: cover;
+      background-position: center;
+      filter: blur(40px);
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    /* === 熱點互動系統 === */
+    .hotspot {
+      position: absolute;
+      cursor: pointer;
+      z-index: 10;
+      transition: transform 0.2s ease;
+    }
+
+    .hotspot:hover {
+      transform: scale(1.1);
+    }
+
+    .hotspot-dot {
+      display: block;
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 80, 80, 0.85);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 28px;
+      font-size: 20px;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.85;
+      }
+      50% {
+        transform: scale(1.15);
+        opacity: 1;
+      }
+    }
+
+    /* 彈出說明框 */
+    .info-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 40px 48px;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      z-index: 2000;
+      width: 95vw;
+      max-width: 1200px;
+      max-height: 90vh;
+      overflow: auto;
+      animation: popupFadeIn 0.3s ease;
+    }
+
+    @keyframes popupFadeIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -48%);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .info-popup.show {
+      display: block;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 28px;
+      color: #7f8c8d;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+      z-index: 1;
+    }
+
+    .popup-close:hover {
+      color: #2c3e50;
+    }
+
+    .popup-content {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+      margin: 0;
+    }
+
+    .popup-image {
+      flex: 0 0 auto;
+      width: 48%;
+      max-width: 500px;
+      height: auto;
+      max-height: 70vh;
+      object-fit: contain; /* no cropping, preserve aspect ratio */
+      border-radius: 8px;
+      display: none;
+    }
+
+    .popup-image.show {
+      display: block;
+    }
+
+    .popup-text-wrapper {
+      flex: 1;
+      min-width: 0; /* allow text to shrink if needed */
+    }
+
+    #popupText {
+      margin: 0;
+      font-size: 19px;
+      color: #34495e;
+      line-height: 1.85;
+    }
+
+    /* 彈出框背景遮罩 */
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1999;
+      animation: overlayFadeIn 0.3s ease;
+    }
+
+    .popup-overlay.show {
+      display: block;
+    }
+
+    @keyframes overlayFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Smaller screens: stack image above text, tighten spacing */
+    @media (max-width: 768px) {
+      .popup-content {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .popup-image {
+        width: 100%;
+        max-width: 100%;
+        max-height: 50vh;
+      }
+      #popupText {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .info-popup {
+        padding: 20px 18px;
+      }
+      .popup-image {
+        max-height: 40vh;
+      }
+      #popupText {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 背景層 -->
+  <div class="background"></div>
+
+  <!-- 頁首 -->
+  <header class="site-header">
+    <div class="logo">
+      <a href="index.html">
+        <img src="images/items/tea.png" alt="Logo">
+      </a>
+    </div>
+    <nav class="top-nav">
+    </nav>
+  </header>
+
+  <!-- 主導覽列 -->
+  <nav class="main-nav">
+    <a href="index.html">首頁</a>
+    <a href="team_members.html">關於我們</a>
+    <a href="todo">策展理念</a>
+
+    <!-- 下拉式選單：策展主題 -->
+    <div class="dropdown" id="themeDropdown">
+      <button class="dropbtn" id="dropbtn" aria-haspopup="true" aria-expanded="false">策展主題 ▾</button>
+      <ul class="dropdown-menu" role="menu" aria-label="策展主題列表">
+        <li role="none"><a role="menuitem" href="theme1.html">茶與文人詩畫</a></li>
+        <li role="none"><a role="menuitem" href="theme2.html">唐代煮茶與宋代點茶文化</a></li>
+        <li role="none"><a role="menuitem" href="theme3.html">茶具的原料和製作方式</a></li>
+        <li role="none"><a role="menuitem" href="theme4.html">明清大調「茶」</a></li>
+      </ul>
+    </div>
+
+    <input type="text" id="searchInput" placeholder="在這裡搜索">
+    <button type="button" onclick="search()">🔍</button>
+  </nav>
+
+  <!-- 橫幅滑動展示區 (全屏) -->
+  <div class="exhibition-swiper-container">
+    <div class="swiper exhibition-swiper">
+      <div class="swiper-wrapper">
+
+        <!-- main -->
+        <div class="swiper-slide">
+          <div class="slide-content">
+            <div class="slide-image" style="background-image: url('images/items/ex1_main.png');"></div>
+            <div class="slide-text">
+              <div class="slide-title">唐代煮茶與宋代點茶文化</div>
+              <div class="slide-description">
+                中國茶文化可追溯至上千年前，從最初用於藥用，到如今廣大的茶文化；從普通民眾難以取得，到人手一杯大眾皆可輕鬆品茶，無論是在古代文物抑或是現今戲劇都可見一斑。唐代飲茶文化盛行，當時的煮茶方式先將茶餅以茶碾碾成細末，再以茶羅過篩，最後加以烹煮。而宋代流行「點茶」，先把茶餅慢火烤香，冷卻後敲碎，磨成細細茶粉過篩後，再把茶粉放到茶碗裡加點水攪勻，用特製的茶筅環迴擊拂，技藝精湛者可在茶湯表面的泡沫上創作文字和圖案，稱為「茶百戲」，另外有時還「鬥茶」，以水痕耐久者勝，點茶講求精細與美學，茶湯在碗中劃出細膩的泡沫，既是飲品，也是藝術。本展覽透過畫作、古籍、茶具等，展示兩個朝代對於茶的追求，進而感受兩代茶文化的變遷。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 1 -->
+        <div class="swiper-slide">
+          <div class="slide-content">
+            <div class="slide-image" style="background-image: url('images/items/3.jpg');">
+              <!-- 熱點 1：童子端茶（帶圖片示範） -->
+              <div class="hotspot" style="top: 50%; left:18%;" 
+                   data-info="左側有一老者，手中拿竹筴，正在茶爐裡煮茶。右側另有一個年輕的侍者，準備了二副茶碗，正等著分茶給主、客二人，右下角有方茶几，上面放着茶碾、茶盒等器物。唐代飲茶的方式主要是喝茶湯，茶葉先經過蒸熟、搗碎、焙烤製成茶餅，備茶時將茶餅用火灸烤，烤後等冷卻後，用茶碾磨成粉末，用茶羅過篩，用風爐和湯釜加水煮成茶湯，其中也可加入鹽、米、薑、奶、香料等一同煎煮。"
+                   data-image="images/items/3-1.png">
+                <span class="hotspot-dot">+</span>
+              </div>
+              <!-- 熱點 2 -->
+              <div class="hotspot" style="top: 60%; left: 65%;" data-info="賺的意思是騙，本區域描繪出監察御史蕭翼，奉唐太宗之命，用哄騙的方法，從辯才和尚手上，奪得王羲之真跡「蘭亭序」的故事。"
+                data-image="images/items/3-2.png">
+                <span class="hotspot-dot">+</span>
+              </div>
+            </div>
+            <div class="slide-text">
+              <div class="slide-title">蕭翼賺蘭亭圖</div>
+              <div class="slide-meta">
+                唐代<br>
+                閻立本<br>
+                繪畫<br>
+              </div>
+              <div class="slide-description">
+                唐代盛行煮茶，將碎茶葉放入茶釜中熬煮，在寺院中不僅僧眾飲茶，還以茶待客，畫中左下角一童子彎身端著大茶托、茶碗，左邊老者坐在風爐前手持茶夾攪動冒著熱煙的茶湯，邊上的茶几上放置茶托茶碗、茶碾及茶罐等用具，生動描繪煮茶情景。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide">
+          <div class="slide-content">
+            <div class="slide-image" style="background-image: url('images/items/5.png');"></div>
+              <div class="hotspot" style="top: 65%; left:30%;" 
+                   data-info="左側有一老者，手中拿竹筴，正在茶爐裡煮茶。右側另有一個年輕的侍者，準備了二副茶碗，正等著分茶給主、客二人，右下角有方茶几，上面放着茶碾、茶盒等器物。唐代飲茶的方式主要是喝茶湯，茶葉先經過蒸熟、搗碎、焙烤製成茶餅，備茶時將茶餅用火灸烤，烤後等冷卻後，用茶碾磨成粉末，用茶羅過篩，用風爐和湯釜加水煮成茶湯，其中也可加入鹽、米、薑、奶、香料等一同煎煮。"
+                   data-image="images/items/5-1.png">
+                <span class="hotspot-dot">+</span>
+              </div>
+            <div class="slide-text">
+              <div class="slide-title">鬥茶圖</div>
+              <div class="slide-meta">
+                宋代<br>
+                劉松年<br>
+                繪畫<br>
+              </div>
+              <div class="slide-description">
+                畫中四人聚於古松石頭邊，正在煮水品茗，二人已捧茶在手，一個正在提壺倒茶，另一個正扇爐烹調茶，似是茶童，此畫體現宋代民間市井喝茶鬥茶的場面。上方鬬茶歌則有提到：「年年春自武夷來，建溪花暖冰微開」「北苑將期獻天子，林下雄豪先鬦美」、「黃金碾畔綠雲飛，碧玉甌中翠濤起，鬥茶味兮輕醍醐」等鬥茶情景。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide">
+          <div class="slide-content">
+            <div class="slide-image" style="background-image: url('images/items/11.png');"></div>
+            <div class="slide-text">
+              <div class="slide-title">茶席雅集</div>
+              <div class="slide-meta">
+                2020<br>
+                綜合媒材<br>
+                120 x 90 cm
+              </div>
+              <div class="slide-description">
+                當代素材與傳統筆觸交織，作品探討茶文化在現代生活中的角色。淺色與深色相互映襯，呈現動態的節奏，喚起觀者對於品茗時刻的記憶與想像。
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Navigation controls -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+
+  <!-- 彈出說明框 -->
+  <div class="popup-overlay" id="popupOverlay"></div>
+  <div class="info-popup" id="infoPopup">
+    <span class="popup-close" id="popupClose">&times;</span>
+    <div class="popup-content">
+      <img id="popupImage" class="popup-image" src="" alt="說明圖片">
+      <div class="popup-text-wrapper">
+        <p id="popupText"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    // Add blurred background to all slide images
+    document.addEventListener('DOMContentLoaded', function() {
+      const slideImages = document.querySelectorAll('.slide-image');
+      slideImages.forEach(function(slideImg) {
+        const bgStyle = slideImg.style.backgroundImage;
+        if (bgStyle) {
+          const blurDiv = document.createElement('div');
+          blurDiv.className = 'blur-bg-layer';
+          blurDiv.style.backgroundImage = bgStyle;
+          slideImg.insertBefore(blurDiv, slideImg.firstChild);
+        }
+      });
+
+      // === 熱點互動系統 ===
+      const popup = document.getElementById('infoPopup');
+      const popupText = document.getElementById('popupText');
+      const popupImage = document.getElementById('popupImage');
+      const popupClose = document.getElementById('popupClose');
+      const overlay = document.getElementById('popupOverlay');
+
+      // 點擊熱點顯示說明
+      document.querySelectorAll('.hotspot').forEach(function(hotspot) {
+        hotspot.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const info = this.getAttribute('data-info');
+          const imgSrc = this.getAttribute('data-image');
+          
+          popupText.textContent = info;
+          
+          // 如果有圖片，顯示圖片
+          if (imgSrc) {
+            popupImage.src = imgSrc;
+            popupImage.classList.add('show');
+          } else {
+            popupImage.classList.remove('show');
+          }
+          
+          popup.classList.add('show');
+          overlay.classList.add('show');
+        });
+      });
+
+      // 關閉彈出框
+      function closePopup() {
+        popup.classList.remove('show');
+        overlay.classList.remove('show');
+      }
+
+      popupClose.addEventListener('click', closePopup);
+      overlay.addEventListener('click', closePopup);
+
+      // ESC 鍵關閉
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && popup.classList.contains('show')) {
+          closePopup();
+        }
+      });
+    });
+
+    // Initialize Swiper
+    const swiper = new Swiper('.exhibition-swiper', {
+      loop: true,
+      speed: 800,
+      // autoplay disabled - manual navigation only
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      effect: 'slide',
+    });
+
+    // Search function (same as index.html)
+    function search() {
+      var value = document.getElementById('searchInput').value.trim();
+      if (!value) return;
+      var keyword = value.toLowerCase();
+      if (keyword.includes('成員') || keyword.includes('關於')) {
+        window.location.href = 'team_members.html';
+      } else if (keyword.includes('首頁')) {
+        window.location.href = 'index.html';
+      } else {
+        alert('找不到相關內容');
+      }
+    }
+
+    // Dropdown toggle (same as index.html)
+    const dropbtn = document.getElementById('dropbtn');
+    const dropdown = document.getElementById('themeDropdown');
+    if (dropbtn && dropdown) {
+      dropbtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const menu = dropdown.querySelector('.dropdown-menu');
+        const isOpen = menu.classList.contains('show');
+        menu.classList.toggle('show');
+        dropbtn.setAttribute('aria-expanded', !isOpen);
+      });
+
+      document.addEventListener('click', function() {
+        const menu = dropdown.querySelector('.dropdown-menu');
+        if (menu.classList.contains('show')) {
+          menu.classList.remove('show');
+          dropbtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
