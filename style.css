@@ -257,7 +257,6 @@ h1 {
   background-color: #444;
 }
 
-<<<<<<< HEAD
 /* ===== 工作進度甘特圖區塊 ===== */
 .gantt-section {
   max-width: 1000px;
@@ -269,7 +268,7 @@ h1 {
 }
 
 .gantt-section h2 {
-  margin: 4px 0 16px 0; /* 與圖片距離更大，也避免貼頂 */
+  margin: 1px 0 16px 0; /* 與圖片距離更大，也避免貼頂 */
   font-size: 20px;
   color: #111;
   text-align: left;
@@ -278,7 +277,7 @@ h1 {
 .gantt-section img {
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 4px;
   display: block;
 }
 
@@ -511,8 +510,6 @@ h1 {
 .typing-dot { display:inline-block; width:6px; height:6px; margin:0 2px; background:#ddd; border-radius:50%; opacity:0.15; }
 .typing-dot.on { opacity:1; }
 
-=======
->>>>>>> 4e3abf4ca5721c71ba9a1a798d99d446b76cb647
 /* ===== 響應式設計 ===== */
 @media (max-width: 768px) {
   .team-grid {
