@@ -175,7 +175,7 @@ h1 {
 
 .team-section h2 {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 56px; /* 與下方卡片拉開距離，字與框分離 */
 }
 
 .team-grid {
@@ -252,6 +252,30 @@ h1 {
 
 .back-home a:hover {
   background-color: #444;
+}
+
+/* ===== 工作進度甘特圖區塊 ===== */
+.gantt-section {
+  max-width: 1000px;
+  margin: 30px auto 10px;
+  padding: 24px 16px 16px; /* 增加上方內距，讓標題與框分離 */
+  background: rgba(255,255,255,0.92);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.gantt-section h2 {
+  margin: 4px 0 16px 0; /* 與圖片距離更大，也避免貼頂 */
+  font-size: 20px;
+  color: #111;
+  text-align: left;
+}
+
+.gantt-section img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
 }
 
 /* ===== 成員影片 Modal 樣式 ===== */
