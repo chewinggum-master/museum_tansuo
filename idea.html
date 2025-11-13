@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>策展理念 - 一盞千年：中國飲茶文化的時光旅程</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Noto Sans TC', Arial, sans-serif;
+      background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 50%, #ffffff 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .idea-container {
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 60px;
+      align-items: center;
+      min-height: calc(100vh - 200px);
+    }
+
+    .idea-text {
+      flex: 1;
+      padding: 40px;
+    }
+
+    .idea-title {
+      font-size: 48px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    .idea-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #c9302c 0%, #e74c3c 100%);
+      border-radius: 2px;
+    }
+
+    .idea-subtitle {
+      font-size: 24px;
+      color: #7f8c8d;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+    .idea-description {
+      font-size: 18px;
+      line-height: 2;
+      color: #34495e;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    .idea-image-wrapper {
+      flex: 0 0 auto;
+      width: 45%;
+      max-width: 600px;
+    }
+
+    .idea-image {
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .idea-image:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+    }
+
+    .back-nav {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .back-nav a {
+      display: inline-block;
+      padding: 12px 32px;
+      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-size: 16px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-nav a:hover {
+      background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    @media (max-width: 1024px) {
+      .idea-container {
+        flex-direction: column-reverse;
+        gap: 40px;
+      }
+
+      .idea-image-wrapper {
+        width: 80%;
+        max-width: 500px;
+      }
+
+      .idea-text {
+        padding: 20px;
+      }
+
+      .idea-title {
+        font-size: 36px;
+      }
+
+      .idea-description {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .idea-image-wrapper {
+        width: 95%;
+      }
+
+      .idea-title {
+        font-size: 28px;
+      }
+
+      .idea-subtitle {
+        font-size: 18px;
+      }
+
+      .idea-description {
+        font-size: 15px;
+        line-height: 1.8;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 頁首 -->
+  <header class="site-header">
+    <div class="logo">
+      <a href="index.html">
+        <img src="images/items/tea.png" alt="Logo">
+      </a>
+    </div>
+    <nav class="top-nav">
+    </nav>
+  </header>
+
+  <!-- 主導覽列 -->
+  <nav class="main-nav">
+    <a href="index.html">首頁</a>
+    <a href="team_members.html">關於我們</a>
+    <a href="idea.html">策展理念</a>
+
+    <!-- 下拉式選單：策展主題 -->
+    <div class="dropdown" id="themeDropdown">
+      <button class="dropbtn" id="dropbtn" aria-haspopup="true" aria-expanded="false">策展主題 ▾</button>
+      <ul class="dropdown-menu" role="menu" aria-label="策展主題列表">
+        <li role="none"><a role="menuitem" href="exhibition1.html">茶與文人詩畫</a></li>
+        <li role="none"><a role="menuitem" href="exhibition2.html">唐代煮茶與宋代點茶文化</a></li>
+        <li role="none"><a role="menuitem" href="exhibition3.html">茶具的原料和製作方式</a></li>
+        <li role="none"><a role="menuitem" href="exhibition4.html">明清大調「茶」</a></li>
+      </ul>
+    </div>
+
+    <input type="text" id="searchInput" placeholder="在這裡搜索">
+    <button type="button" onclick="search()">🔍</button>
+  </nav>
+
+  <!-- 策展理念內容 -->
+  <div class="idea-container">
+    <div class="idea-text">
+      <h1 class="idea-title">策展理念以及主題</h1>
+      <p class="idea-subtitle">理念</p>
+      <div class="idea-description">
+        <p>讓觀眾了解手搖飲背後的文化根源，體會其在茶文化中承載的歷史意義</p>
+        <p>呈現茶器在不同朝代的功能、造型與地位象徵</p>
+        <p class="idea-subtitle">設計概念</p>
+        <p> 傳遞的意念：強調「形式雖變、精神不變」，茶器隨時代在形制、材質與裝飾上演進，始終體現生活與美學需求</p>
+        <p>教育衍生性：
+讓觀眾認識古代茶器的種類、材質、造型與用途，並了解不同茶器背後的社會文化背景</p>
+        <p>附加價值：
+設立「線上互動區」，讓觀眾投票選出最喜愛的茶器與詩畫，提升參與與互動感</p>
+
+      </div>
+    </div>
+
+    <div class="idea-image-wrapper">
+      <img src="images/items/viewpic.jpg" alt="策展主視覺" class="idea-image">
+    </div>
+  </div>
+
+  <div class="back-nav">
+    <a href="index.html">← 回到首頁</a>
+  </div>
+
+  <script>
+    // Search function
+    function search() {
+      var value = document.getElementById('searchInput').value.trim();
+      if (!value) return;
+      var keyword = value.toLowerCase();
+      if (keyword.includes('成員') || keyword.includes('關於')) {
+        window.location.href = 'team_members.html';
+      } else if (keyword.includes('首頁')) {
+        window.location.href = 'index.html';
+      } else if (keyword.includes('理念')) {
+        window.location.href = 'idea.html';
+      } else {
+        alert('找不到相關內容');
+      }
+    }
+
+    // Dropdown toggle
+    (function() {
+      var dropdown = document.getElementById('themeDropdown');
+      var btn = document.getElementById('dropbtn');
+
+      if (!dropdown || !btn) return;
+
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = dropdown.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      dropdown.addEventListener('click', function(e) {
+        var target = e.target;
+        if (target.tagName.toLowerCase() === 'a') {
+          dropdown.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      document.addEventListener('click', function() {
+        if (dropdown.classList.contains('open')) {
+          dropdown.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          if (dropdown.classList.contains('open')) {
+            dropdown.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+            btn.focus();
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
