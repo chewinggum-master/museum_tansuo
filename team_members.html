@@ -31,6 +31,27 @@
     </nav>
   </header>
 
+  <!-- 主導覽列 -->
+  <nav class="main-nav">
+    <a href="index.html">首頁</a>
+    <a href="team_members.html">關於我們</a>
+    <a href="idea.html">策展理念</a>
+
+    <!-- 下拉式選單：策展主題 -->
+    <div class="dropdown" id="themeDropdown">
+      <button class="dropbtn" id="dropbtn" aria-haspopup="true" aria-expanded="false">策展主題 ▾</button>
+      <ul class="dropdown-menu" role="menu" aria-label="策展主題列表">
+        <li role="none"><a role="menuitem" href="exhibition1.html">茶與文人詩畫</a></li>
+        <li role="none"><a role="menuitem" href="exhibition2.html">唐代煮茶與宋代點茶文化</a></li>
+        <li role="none"><a role="menuitem" href="exhibition3.html">茶具的原料和製作方式</a></li>
+        <li role="none"><a role="menuitem" href="exhibition4.html">明清大調「茶」</a></li>
+      </ul>
+    </div>
+
+    <input type="text" id="searchInput" placeholder="在這裡搜索">
+    <button type="button" onclick="search()">🔍</button>
+  </nav>
+
   <!-- 成員介紹區 -->
   <main class="team-section">
     <h2>策展團隊</h2>
@@ -192,10 +213,11 @@
             <img src="pic/owo.jpg" alt="高頂軒">
           <div class="member-info">
             <h3>高頂軒</h3>
-            <p><strong>資訊工程學系116級</strong></p>
-            <p>學號：41247003S</p>
-            <p>工作內容：期中明清文獻調查、期末網站架設</p>
-            <p>喜好茶種：巧克力可可碎片星冰樂</p>
+            <p><strong>歷史學系118級</strong></p>
+            <p>學號：41422016L</p>
+            <p>工作內容：期中策展理念與主題、設計概念說明</p>
+            <p>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp期末清朝文物</p>
+            <p>喜好茶種：霧社高山烏龍茶</p>
           </div>
         </div>
       </a>
@@ -457,6 +479,62 @@
         if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
       });
     })();
+
+    // Search function
+    function search() {
+      var value = document.getElementById('searchInput').value.trim();
+      if (!value) return;
+      var keyword = value.toLowerCase();
+      if (keyword.includes('成員') || keyword.includes('關於')) {
+        window.location.href = 'team_members.html';
+      } else if (keyword.includes('首頁')) {
+        window.location.href = 'index.html';
+      } else if (keyword.includes('理念')) {
+        window.location.href = 'idea.html';
+      } else {
+        alert('找不到相關內容');
+      }
+    }
+
+    // Dropdown toggle
+    (function() {
+      var dropdown = document.getElementById('themeDropdown');
+      var btn = document.getElementById('dropbtn');
+
+      if (!dropdown || !btn) return;
+
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = dropdown.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      dropdown.addEventListener('click', function(e) {
+        var target = e.target;
+        if (target.tagName.toLowerCase() === 'a') {
+          dropdown.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      document.addEventListener('click', function() {
+        if (dropdown.classList.contains('open')) {
+          dropdown.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          if (dropdown.classList.contains('open')) {
+            dropdown.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+            btn.focus();
+          }
+        }
+      });
+    })();
   </script>
 </body>
 </html>
+
