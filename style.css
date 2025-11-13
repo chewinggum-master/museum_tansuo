@@ -416,8 +416,96 @@ h1 {
 }
 
 @media (max-width: 720px) {
-  .member-modal-content { flex-direction: column; align-items: stretch; }
-  .modal-media { width: 100%; max-width: none; }
+  .member-modal-content { 
+    flex-direction: column; 
+    align-items: stretch;
+    width: 95%;
+    min-height: auto;
+    padding: 20px 12px 12px 12px;
+    gap: 12px;
+  }
+  
+  .modal-close {
+    font-size: 22px;
+    right: 8px;
+    top: 4px;
+  }
+  
+  .modal-media { 
+    width: 100%; 
+    max-width: none;
+    flex: 0 0 auto;
+    min-height: 250px;
+    max-height: 300px;
+  }
+  
+  .chat-wrap {
+    min-height: 350px;
+    max-height: 400px;
+  }
+  
+  .chat-header {
+    padding: 8px 12px;
+  }
+  
+  .chat-header .modal-name {
+    font-size: 14px;
+  }
+  
+  .chat-icons {
+    gap: 12px;
+  }
+  
+  .chat-icon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .chat-bubble {
+    font-size: 14px;
+    padding: 8px 12px;
+    max-width: 85%;
+  }
+  
+  .chat-buttons {
+    padding: 10px 12px;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  
+  .chat-btn {
+    font-size: 13px;
+    padding: 7px 12px;
+    flex: 1 1 auto;
+    min-width: calc(50% - 3px);
+  }
+}
+
+@media (max-width: 480px) {
+  .member-modal-content {
+    width: 98%;
+    padding: 16px 8px 8px 8px;
+  }
+  
+  .modal-media {
+    min-height: 200px;
+    max-height: 250px;
+  }
+  
+  .chat-wrap {
+    min-height: 300px;
+    max-height: 350px;
+  }
+  
+  .chat-bubble {
+    font-size: 13px;
+    max-width: 90%;
+  }
+  
+  .chat-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
 }
 
 /* 聊天框樣式 */
