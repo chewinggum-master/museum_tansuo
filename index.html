@@ -40,6 +40,7 @@
   <a href="index.html">首頁</a>
   <a href="team_members.html">關於我們</a>
   <a href="idea.html">策展理念</a>
+  <a href="activity.html">活動</a>
 
   <!-- 下拉式選單：策展主題 -->
   <div class="dropdown" id="themeDropdown">
@@ -60,26 +61,12 @@
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide">
-  <img src="images\member\chi.jpg" alt="看板1">
+  <img src="images\items\home.png" alt="看板1">
       </div>
       <div class="swiper-slide">
-  <img src="images\member\hu.png" alt="看板2">
+  <img src="images\items\taolung.jpg" alt="看板2">
       </div>
-      <div class="swiper-slide">
-  <img src="images\member\jeff.jpg" alt="看板3">
-      </div>
-      <div class="swiper-slide">
-  <img src="images\member\jia.jpg" alt="看板4">
-      </div>
-      <div class="swiper-slide">
-  <img src="images\member\pei.jpg" alt="看板5">
-      </div>
-      <div class="swiper-slide">
-  <img src="images\member\purple.jpg" alt="看板6">
-      </div>
-      <div class="swiper-slide">
-  <img src="images\member\yun.jpg" alt="看板7">
-      </div>
+      
     </div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
@@ -133,16 +120,16 @@
       var value = document.getElementById('searchInput').value.trim();
       if (!value) return;
       var keyword = value.toLowerCase();
-      if (keyword.includes('幹員')) {
-        window.location.href = "character.html";
-      } else if (keyword.includes('道具')) {
-        window.location.href = "item.html";
-      } else if (keyword.includes('關卡')) {
-        window.location.href = "stage.html";
-      } else if (keyword.includes('成員')) {
-        window.location.href = "team_members.html";
+      if (keyword.includes('成員') || keyword.includes('關於')) {
+        window.location.href = 'team_members.html';
+      } else if (keyword.includes('首頁')) {
+        window.location.href = 'index.html';
+      } else if (keyword.includes('理念')) {
+        window.location.href = 'idea.html';
+      } else if (keyword.includes('活動') || keyword.includes('茶語') || keyword.includes('投稿')) {
+        window.location.href = 'activity.html';
       } else {
-        alert('nothing found');
+        alert('找不到相關內容');
       }
     }
   </script>

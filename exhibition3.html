@@ -337,6 +337,7 @@
     <a href="index.html">首頁</a>
     <a href="team_members.html">關於我們</a>
     <a href="idea.html">策展理念</a>
+    <a href="activity.html">活動</a>
 
     <!-- 下拉式選單：策展主題 -->
     <div class="dropdown" id="themeDropdown">
@@ -595,6 +596,10 @@
         window.location.href = 'team_members.html';
       } else if (keyword.includes('首頁')) {
         window.location.href = 'index.html';
+      } else if (keyword.includes('理念')) {
+        window.location.href = 'idea.html';
+      } else if (keyword.includes('活動') || keyword.includes('茶語') || keyword.includes('投稿')) {
+        window.location.href = 'activity.html';
       } else {
         alert('找不到相關內容');
       }
